@@ -32,11 +32,12 @@ public class SplashActivity extends AppCompatActivity implements ISplashView {
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        //取出ActionBar，上面都糊上了
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        //去除ActionBar，上面都糊上了
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().hide();
+//        }
         mLaunchImage = findViewById(R.id.iv_launch_image);
 
         //获取P层的引用，设置view，并更新UI
