@@ -1,7 +1,10 @@
 package com.nj.zhihu.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +26,18 @@ public class SplashActivity extends AppCompatActivity implements ISplashView {
     private String mLauchImageUrl;
     private SplashPresenter mPresenter;
 
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 10086) {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +58,7 @@ public class SplashActivity extends AppCompatActivity implements ISplashView {
         //获取P层的引用，设置view，并更新UI
         mPresenter = new SplashPresenter();
         mPresenter.attachView(this);
+//        mPresenter.getLaunchImage();
         mPresenter.getLaunchImageFromBiY();
     }
 
@@ -85,13 +101,15 @@ public class SplashActivity extends AppCompatActivity implements ISplashView {
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .into(mLaunchImage);
                 SpUtils.put(SplashActivity.this, "launch_image", imageurl);
+                //因为这里没有使用Rxjava，所以需要手动调用onRequestEnd方法
+                onRequestEnd();
             }
         });
     }
 
     @Override
     public void onRequestEnd() {
-
+        mHandler.sendEmptyMessageDelayed(10086, 5000);
     }
 
     /**

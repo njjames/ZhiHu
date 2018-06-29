@@ -71,6 +71,7 @@ public class SplashPresenter extends IBasePresenter<ISplashView> {
                         }
                     }
 
+                    //请求完之后就会获取回调这个方法，不用显示调用
                     @Override
                     public void onComplete() {
                         if (isViewAttaced()) {
