@@ -16,6 +16,12 @@ public interface ISplashView extends IBaseView {
     void getLanuchImage(LaunchImage launchImage);
 
     /**
+     * 从必应根据获取到的数据，设置图片
+     * @param imageurl 从P层返回的数据url
+     */
+    void getLanuchImageFromBiY(String imageurl);
+
+    /**
      * 请求结束之后，调用此方法
      */
     void onRequestEnd();

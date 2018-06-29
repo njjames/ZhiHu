@@ -70,5 +70,24 @@ public class LaunchImage {
         public void setImpression_tracks(List<String> impression_tracks) {
             this.impression_tracks = impression_tracks;
         }
+
+        @Override
+        public String toString() {
+            return "CreativesBean{" +
+                    "url='" + url + '\'' +
+                    ", text='" + text + '\'' +
+                    ", start_time=" + start_time +
+                    ", type=" + type +
+                    ", id='" + id + '\'' +
+                    ", impression_tracks=" + impression_tracks +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "LaunchImage{" +
+                "creatives=" + creatives +
+                '}';
     }
 }
