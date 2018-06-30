@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <include layout="@layout/toolbar" />
 
         <FrameLayout
             android:id="@+id/container"
@@ -15,11 +18,11 @@
         </FrameLayout>
     </LinearLayout>
 
-    <TextView
+    <fragment
         android:id="@+id/choose_theme"
+        android:name="com.nj.zhihu.ui.fragment.ChooseThemeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:text="menu"/>
+        android:layout_gravity="start" />
 
 </android.support.v4.widget.DrawerLayout>

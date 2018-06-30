@@ -1,12 +1,10 @@
 package com.nj.zhihu.mvp.presenter;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.nj.zhihu.bean.LaunchImage;
 import com.nj.zhihu.mvp.biz.SplashBiz;
 import com.nj.zhihu.mvp.view.ISplashView;
-import com.nj.zhihu.ui.activity.SplashActivity;
 
 import java.io.IOException;
 
@@ -26,7 +24,7 @@ import okhttp3.Response;
  * Created by Administrator on 2018-06-28.
  */
 
-public class SplashPresenter extends IBasePresenter<ISplashView> {
+public class SplashPresenter extends BasePresenter<ISplashView> {
     private static final String TAG = "SplashPresenterLog";
 
     private final SplashBiz mBiz;
