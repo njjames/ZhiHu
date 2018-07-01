@@ -44,8 +44,8 @@ public class ChooseThemeFragment extends Fragment implements IThemeView {
         mNavigation = view.findViewById(R.id.rv_navigation);
         mPresenter = new ThemePresenter();
         mPresenter.attachView(this);
-        mNavigation.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new ThemesListAdapter(mList);
+        mNavigation.setLayoutManager(new LinearLayoutManager(getContext()));
         mNavigation.setAdapter(mAdapter);
         mPresenter.getThemesList();
     }
