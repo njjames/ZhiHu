@@ -6,7 +6,7 @@ import java.util.List;
  * Created by nj on 2018/6/30.
  */
 
-public class Themes {
+public class Themes implements IBaseItem {
     /**
      * limit : 1000
      * subscribed : []

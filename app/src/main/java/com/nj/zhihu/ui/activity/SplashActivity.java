@@ -109,7 +109,7 @@ public class SplashActivity extends AppCompatActivity implements ISplashView {
 
     @Override
     public void onRequestEnd() {
-        mHandler.sendEmptyMessageDelayed(10086, 5000);
+        mHandler.sendEmptyMessageDelayed(10086, 3000);
     }
 
     /**

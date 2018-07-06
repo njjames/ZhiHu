@@ -1,10 +1,13 @@
 package com.nj.zhihu.api;
 
+import com.nj.zhihu.bean.BeforeStories;
+import com.nj.zhihu.bean.LatestStories;
 import com.nj.zhihu.bean.LaunchImage;
 import com.nj.zhihu.bean.Themes;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * 用于描述网络请求的接口
@@ -26,5 +29,15 @@ public interface CommonApi {
      */
     @GET("/api/4/themes")
     Observable<Themes> getThemesList();
+
+    /**
+     * 获取最新新闻的数据
+     * @return
+     */
+    @GET("/api/4/news/latest")
+    Observable<LatestStories> getLatestStories();
+
+    @GET("/api/4/news/before/{date}")
+    Observable<BeforeStories> getBeforeStorise(@Path("date") String date);
 
 }

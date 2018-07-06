@@ -4,7 +4,7 @@ package com.nj.zhihu.bean;
  * Created by nj on 2018/6/30.
  */
 
-public class ThemesOther {
+public class ThemesOther implements IBaseItem {
     /**
      * color : 15007
      * thumbnail : http://pic3.zhimg.com/0e71e90fd6be47630399d63c58beebfc.jpg
