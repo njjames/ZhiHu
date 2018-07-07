@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.content.SharedPreferencesCompat;
 
+import com.nj.zhihu.ui.activity.BaseActivity;
+
 /**
  * SP工具类
  * Created by Administrator on 2018-06-29.
@@ -61,5 +63,14 @@ public class SpUtils {
         return null;
     }
 
-
+    /**
+     * 判断是否包含某个key
+     * @param context
+     * @param key
+     * @return
+     */
+    public static boolean contains(Context context, String key) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.contains(key);
+    }
 }

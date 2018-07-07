@@ -13,9 +13,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.nj.zhihu.App;
 import com.nj.zhihu.GlideApp;
 import com.nj.zhihu.R;
 import com.nj.zhihu.bean.TopStories;
+import com.nj.zhihu.utils.NetWorkUtils;
+import com.nj.zhihu.utils.SpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +40,7 @@ public class Banner extends RelativeLayout {
     private boolean isAutoPaly = true;
     private ViewPager.OnPageChangeListener mOnPageChangeListener;
     private int lastPosition = 0; //vp上一张的位置，默认是0
+    private OnBannerClickListener mBannerClickListener;
 
     public Banner(Context context) {
         this(context, null);
@@ -75,11 +79,29 @@ public class Banner extends RelativeLayout {
         for (int i = 0; i < mDataList.size(); i++) {
             ImageView imageView = new ImageView(getContext());
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            final int id = mDataList.get(i).getId();
+            imageView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mBannerClickListener != null) {
+                        mBannerClickListener.onBannerClick(id);
+                    }
+                }
+            });
             mImageViewList.add(imageView);
-            GlideApp.with(getContext())
-                    .load(mDataList.get(i).getImage())
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                    .into(imageView);
+            //如果当前是无图模式，并且Wifi网络不可用，那么就不显示图片
+            if ((boolean) SpUtils.get(App.getContext(), "NO_IMAGE_MODE", false)
+                    && !NetWorkUtils.isWifiConnected(App.getContext())) {
+                GlideApp.with(getContext())
+                        .load(R.drawable.image_top_default)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .into(imageView);
+            } else {
+                GlideApp.with(getContext())
+                        .load(mDataList.get(i).getImage())
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .into(imageView);
+            }
         }
         //将mImageViewList设置到vp的adpter中
         setVPData();
@@ -92,6 +114,7 @@ public class Banner extends RelativeLayout {
             mBannerAdapter = new BannerAdapter(mImageViewList);
         }
         mViewPager.setAdapter(mBannerAdapter);
+        mHandler.removeCallbacks(mRunnable);
         mHandler.postDelayed(mRunnable, 4000);
         mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
             @Override
@@ -165,6 +188,16 @@ public class Banner extends RelativeLayout {
     };
 
     public interface OnBannerClickListener {
+        void onBannerClick(int id);
+    }
 
+    public void setOnBannerClickListener(OnBannerClickListener bannerClickListener) {
+        mBannerClickListener = bannerClickListener;
+    }
+
+    public void stop() {
+        if (mHandler != null) {
+            mHandler.removeCallbacks(mRunnable);
+        }
     }
 }

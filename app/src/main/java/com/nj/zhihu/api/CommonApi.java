@@ -3,6 +3,8 @@ package com.nj.zhihu.api;
 import com.nj.zhihu.bean.BeforeStories;
 import com.nj.zhihu.bean.LatestStories;
 import com.nj.zhihu.bean.LaunchImage;
+import com.nj.zhihu.bean.StoryContent;
+import com.nj.zhihu.bean.StoryContentExtra;
 import com.nj.zhihu.bean.Themes;
 
 import io.reactivex.Observable;
@@ -37,7 +39,27 @@ public interface CommonApi {
     @GET("/api/4/news/latest")
     Observable<LatestStories> getLatestStories();
 
+    /**
+     * 根据日期获取前一天的数据
+     * @return
+     */
     @GET("/api/4/news/before/{date}")
     Observable<BeforeStories> getBeforeStorise(@Path("date") String date);
+
+    /**
+     * 根据id获取新闻内容
+     * @param id
+     * @return
+     */
+    @GET("/api/4/news/{id}")
+    Observable<StoryContent> getStoryContent(@Path("id") int id);
+
+    /**
+     * 获取信息的额外数据
+     * @param id
+     * @return
+     */
+    @GET("/api/4/story-extra/{id}")
+    Observable<StoryContentExtra> getStoryContentExtra(@Path("id") int id);
 
 }
