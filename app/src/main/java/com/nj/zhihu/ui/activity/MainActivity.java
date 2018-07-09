@@ -1,6 +1,8 @@
 package com.nj.zhihu.ui.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         switchFragment(mFragment, "首页");
     }
 
-    private void switchFragment(Fragment fragment, String title) {
+    public void switchFragment(Fragment fragment, String title) {
         if (!mCurrentTitle.equals(title)) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_notification:
+                goToLogin();
                 break;
             case R.id.action_night:
                 //如果当前是夜间模式,则设置为非夜间模式
@@ -77,8 +80,23 @@ public class MainActivity extends AppCompatActivity {
                 recreate();
                 break;
             case R.id.action_setting:
+                Intent intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToLogin() {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawers();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

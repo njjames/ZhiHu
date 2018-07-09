@@ -3,10 +3,13 @@ package com.nj.zhihu.ui.adapter.drawer;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nj.zhihu.R;
@@ -22,11 +25,21 @@ import java.util.List;
  */
 
 public class ThemesListAdapter extends MultiItemTypeAdapter<IBaseItem> {
+    private static final String TAG = "ThemesListAdapterLOG";
 
     //默认是1，也就是默认选择首页
     private int mSelection = 1;
     private final Context mContext;
     private OnItemClickListener mOnItemClickListener;
+    private View.OnClickListener mListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //点击事件再调用我们定义的点击接口回调
+            if (mOnItemClickListener!= null) {
+                mOnItemClickListener.onDrawerHeaderClick(v);
+            }
+        }
+    };
 
     //这里只要在构造方法中把itemview加进去，就可以在recyclerview中显示传递进来的集合了
     public ThemesListAdapter(Context context, List<IBaseItem> itemList) {
@@ -61,15 +74,46 @@ public class ThemesListAdapter extends MultiItemTypeAdapter<IBaseItem> {
         super.setListener(parent, viewHolder, viewType);
         switch (viewType) {
             case 0:
+                LinearLayout login = viewHolder.getView(R.id.login);
+                Button collect = viewHolder.getView(R.id.collect);
+                Button download = viewHolder.getView(R.id.download);
+                //都调用点击事件
+                login.setOnClickListener(mListener);
+                collect.setOnClickListener(mListener);
+                download.setOnClickListener(mListener);
                 break;
             case 1:
+                //只有在点击的时候才会调用，所以要设置点击事件监听
+                viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick: " + viewHolder.getAdapterPosition());
+                        if (mOnItemClickListener != null) {
+                            mOnItemClickListener.onItemViewClick(viewHolder.getAdapterPosition());
+                        }
+                    }
+                });
+                //不能这样调用，否则没有点击就会执行，肯定报错
+                //                if (mOnItemClickListener != null) {
+                //                    mOnItemClickListener.onItemViewClick(viewHolder.getAdapterPosition());
+                //                }
                 break;
             case 2:
                 viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Log.d(TAG, "onClick: " + viewHolder.getAdapterPosition());
                         if (mOnItemClickListener != null) {
                             mOnItemClickListener.onItemViewClick(viewHolder.getAdapterPosition());
+                        }
+                    }
+                });
+                //这样点击+就会响应后加的事件
+                viewHolder.getView(R.id.iv_add_follow).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mOnItemClickListener != null) {
+                            mOnItemClickListener.onFollowClick();
                         }
                     }
                 });

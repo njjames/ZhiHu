@@ -1,11 +1,13 @@
 package com.nj.zhihu.api;
 
 import com.nj.zhihu.bean.BeforeStories;
+import com.nj.zhihu.bean.BeforeThemeStories;
 import com.nj.zhihu.bean.LatestStories;
 import com.nj.zhihu.bean.LaunchImage;
 import com.nj.zhihu.bean.StoryContent;
 import com.nj.zhihu.bean.StoryContentExtra;
 import com.nj.zhihu.bean.Themes;
+import com.nj.zhihu.bean.ThemesContent;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -61,5 +63,22 @@ public interface CommonApi {
      */
     @GET("/api/4/story-extra/{id}")
     Observable<StoryContentExtra> getStoryContentExtra(@Path("id") int id);
+
+    /**
+     * 获取某个主题下的数据
+     * @param id
+     * @return
+     */
+    @GET("/api/4/theme/{id}")
+    Observable<ThemesContent> getThemeContent(@Path("id") int id);
+
+    /**
+     * 获取某个主题下，某个id之前的数据
+     * @param id
+     * @param story_id
+     * @return
+     */
+    @GET("/api/4/theme/{id}/before/{story_id}")
+    Observable<BeforeThemeStories> getBeforeThemesContent(@Path("id") int id, @Path("story_id") int story_id);
 
 }
