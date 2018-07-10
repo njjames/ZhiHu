@@ -23,7 +23,10 @@
         </activity>
         <activity android:name=".ui.activity.StoryContentActivity" />
         <activity android:name=".ui.activity.SettingActivity" />
-        <activity android:name=".ui.activity.LoginActivity"></activity>
+        <activity android:name=".ui.activity.LoginActivity" />
+        <activity android:name=".ui.activity.OtherContentActivity" />
+        <activity android:name=".ui.activity.EditorActivity" />
+        <activity android:name=".ui.activity.CommentActivity"></activity>
     </application>
 
 </manifest>

@@ -1,9 +1,9 @@
 package com.nj.zhihu.mvp.presenter;
 
-import com.nj.zhihu.bean.BeforeThemeStories;
-import com.nj.zhihu.bean.ThemesContent;
-import com.nj.zhihu.mvp.biz.OtherBiz;
-import com.nj.zhihu.mvp.view.IOtherView;
+import com.nj.zhihu.bean.StoryContentLongComment;
+import com.nj.zhihu.bean.StoryContentShortComment;
+import com.nj.zhihu.mvp.biz.CommentBiz;
+import com.nj.zhihu.mvp.view.ICommectView;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -11,40 +11,41 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by Administrator on 2018-07-09.
+ * Created by Administrator on 2018-07-10.
  */
 
-public class OtherPresenter extends BasePresenter<IOtherView> {
-    private OtherBiz mBiz;
+public class CommentPresenter extends BasePresenter<ICommectView> {
 
-    public OtherPresenter() {
-        this.mBiz = new OtherBiz();
+    private final CommentBiz mBiz;
+
+    public CommentPresenter() {
+        mBiz = new CommentBiz();
     }
 
-    public void getThemeContent(int id) {
+    public void getLongComments(int id) {
         if (!isViewAttaced()) {
             return;
         }
-        mBiz.getThemeContent(id)
+        mBiz.getStoryContentLongComments(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ThemesContent>() {
+                .subscribe(new Observer<StoryContentLongComment>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         addSubscription(d);
                     }
 
                     @Override
-                    public void onNext(ThemesContent themesContent) {
+                    public void onNext(StoryContentLongComment storyContentLongComment) {
                         if (isViewAttaced()) {
-                            getView().loadOtherContent(themesContent);
+                            getView().loadLongComments(storyContentLongComment);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         if (isViewAttaced()) {
-                            getView().onRequestErr("数据加载失败o(╥﹏╥)o");
+                            getView().onRequestErr("长评论加载失败o(╥﹏╥)o");
                         }
                     }
 
@@ -55,27 +56,30 @@ public class OtherPresenter extends BasePresenter<IOtherView> {
                 });
     }
 
-    public void getBeforeThemeContent(int id, int story_id) {
-        mBiz.getBeforeThemesContent(id, story_id)
+    public void getShortComments(int id) {
+        if (!isViewAttaced()) {
+            return;
+        }
+        mBiz.getStoryContentShortComments(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BeforeThemeStories>() {
+                .subscribe(new Observer<StoryContentShortComment>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         addSubscription(d);
                     }
 
                     @Override
-                    public void onNext(BeforeThemeStories beforeThemeStories) {
+                    public void onNext(StoryContentShortComment storyContentShortComment) {
                         if (isViewAttaced()) {
-                            getView().loadBeforeOtherContent(beforeThemeStories);
+                            getView().loadSgortComments(storyContentShortComment);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         if (isViewAttaced()) {
-                            getView().onRequestErr("数据加载失败o(╥﹏╥)o");
+                            getView().onRequestErr("短评论加载失败o(╥﹏╥)o");
                         }
                     }
 

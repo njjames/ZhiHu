@@ -10,6 +10,7 @@ import com.nj.zhihu.GlideApp;
 import com.nj.zhihu.R;
 import com.nj.zhihu.bean.IBaseItem;
 import com.nj.zhihu.bean.ThemesContentItem;
+import com.nj.zhihu.ui.activity.OtherContentActivity;
 import com.nj.zhihu.ui.activity.StoryContentActivity;
 import com.nj.zhihu.utils.NetWorkUtils;
 import com.nj.zhihu.utils.SpUtils;
@@ -57,7 +58,7 @@ public class OtherItemDelegte implements ItemViewDelegate<IBaseItem> {
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, StoryContentActivity.class);
+                Intent intent = new Intent(context, OtherContentActivity.class);
                 intent.putExtra("id", themesContentItem.getId());
                 context.startActivity(intent);
             }

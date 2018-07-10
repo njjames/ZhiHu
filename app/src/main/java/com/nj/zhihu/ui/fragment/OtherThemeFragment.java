@@ -16,11 +16,13 @@ import com.nj.zhihu.R;
 import com.nj.zhihu.bean.BeforeThemeStories;
 import com.nj.zhihu.bean.IBaseItem;
 import com.nj.zhihu.bean.ThemesContent;
+import com.nj.zhihu.bean.ThemesContentItem;
 import com.nj.zhihu.mvp.presenter.OtherPresenter;
 import com.nj.zhihu.mvp.view.IOtherView;
 import com.nj.zhihu.ui.adapter.other.OtherHeader;
 import com.nj.zhihu.ui.adapter.other.OtherListAdapter;
 import com.nj.zhihu.ui.adapter.other.OtherSection;
+import com.zhy.adapter.recyclerview.wrapper.LoadMoreWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,8 @@ public class OtherThemeFragment extends Fragment implements IOtherView {
     private static final String LIST_ID = "list_id";
     private OtherPresenter mPresenter;
     private int mId;
+    private boolean mIsRefreash;
+    private LoadMoreWrapper mLoadMoreWrapper;
 
     public OtherThemeFragment() {
     }
@@ -73,11 +77,32 @@ public class OtherThemeFragment extends Fragment implements IOtherView {
         mSwipeLayout = view.findViewById(R.id.swipe_refresh_layout);
         mRecyclerView = view.findViewById(R.id.rv_other);
         mAdapter = new OtherListAdapter(getContext(), mList);
+        mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
+        mLoadMoreWrapper.setLoadMoreView(R.layout.default_loading);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mLoadMoreWrapper);
         mPresenter = new OtherPresenter();
         mPresenter.attachView(this);
         mPresenter.getThemeContent(mId);
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSwipeLayout.setRefreshing(true);
+                mIsRefreash = true;
+                mPresenter.getThemeContent(mId);
+            }
+        });
+        mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                int story_id = 0;
+                if (mList.size() > 0) {
+                    ThemesContentItem themesContentItem = (ThemesContentItem) mList.get(mList.size() - 1);
+                    story_id = themesContentItem.getId();
+                }
+                mPresenter.getBeforeThemeContent(mId, story_id);
+            }
+        });
     }
 
     @Override
@@ -98,11 +123,13 @@ public class OtherThemeFragment extends Fragment implements IOtherView {
         mList.add(new OtherHeader(themesContent.getImage()));
         mList.add(new OtherSection(themesContent.getEditors()));
         mList.addAll(themesContent.getStories());
-        mAdapter.notifyDataSetChanged();
+        mLoadMoreWrapper.notifyDataSetChanged();
+        mSwipeLayout.setRefreshing(false);
     }
 
     @Override
     public void loadBeforeOtherContent(BeforeThemeStories beforeThemeStories) {
-
+        mList.addAll(beforeThemeStories.getStories());
+        mLoadMoreWrapper.notifyDataSetChanged();
     }
 }

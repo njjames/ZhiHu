@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     SpUtils.put(this, "night_mode", true);
                 }
+                //不重新创建，无法立即显示
                 recreate();
                 break;
             case R.id.action_setting:

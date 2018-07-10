@@ -6,6 +6,8 @@ import com.nj.zhihu.bean.LatestStories;
 import com.nj.zhihu.bean.LaunchImage;
 import com.nj.zhihu.bean.StoryContent;
 import com.nj.zhihu.bean.StoryContentExtra;
+import com.nj.zhihu.bean.StoryContentLongComment;
+import com.nj.zhihu.bean.StoryContentShortComment;
 import com.nj.zhihu.bean.Themes;
 import com.nj.zhihu.bean.ThemesContent;
 
@@ -80,5 +82,22 @@ public interface CommonApi {
      */
     @GET("/api/4/theme/{id}/before/{story_id}")
     Observable<BeforeThemeStories> getBeforeThemesContent(@Path("id") int id, @Path("story_id") int story_id);
+
+    /**
+     * 根据新闻的id获取长评论信息
+     * @param id
+     * @return
+     */
+    @GET("/api/4/story/{id}/long-comments")
+    Observable<StoryContentLongComment> getStoryContentLongComments(@Path("id") int id);
+
+    /**
+     * 根据新闻的id获取短评论信息
+     * @param id
+     * @return
+     */
+    @GET("/api/4/story/{id}/short-comments")
+    Observable<StoryContentShortComment> getStoryContentShortComments(@Path("id") int id);
+
 
 }
