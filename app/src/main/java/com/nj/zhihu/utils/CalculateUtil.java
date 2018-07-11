@@ -1,6 +1,7 @@
 package com.nj.zhihu.utils;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Administrator on 2018-07-07.
@@ -15,4 +16,6 @@ public class CalculateUtil {
         }
         return Integer.toString(num);
     }
+
+
 }

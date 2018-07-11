@@ -33,7 +33,7 @@
         android:id="@+id/like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_thumb_up"
+        android:src="@drawable/ic_thumb_up_grey"
         android:layout_toLeftOf="@id/like_count"
         android:layout_below="@id/content"
         android:layout_marginRight="8dp"/>

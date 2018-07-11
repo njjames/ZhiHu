@@ -72,7 +72,7 @@ public class CommentPresenter extends BasePresenter<ICommectView> {
                     @Override
                     public void onNext(StoryContentShortComment storyContentShortComment) {
                         if (isViewAttaced()) {
-                            getView().loadSgortComments(storyContentShortComment);
+                            getView().loadShortComments(storyContentShortComment);
                         }
                     }
 

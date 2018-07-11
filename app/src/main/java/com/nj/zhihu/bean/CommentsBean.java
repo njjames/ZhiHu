@@ -4,7 +4,7 @@ package com.nj.zhihu.bean;
  * Created by Administrator on 2018-07-10.
  */
 
-public class CommentsBean {
+public class CommentsBean implements IBaseItem{
     public String author;
     public String content;
     public String avatar;

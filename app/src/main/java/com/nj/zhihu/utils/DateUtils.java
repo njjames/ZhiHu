@@ -27,4 +27,10 @@ public class DateUtils {
         }
         return null;
     }
+
+    public static String timeToStr(int time) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd HH:mm", Locale.CHINA);
+        Date date = new Date(time * 1000);
+        return simpleDateFormat.format(date);
+    }
 }

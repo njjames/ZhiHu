@@ -9,11 +9,11 @@ import com.nj.zhihu.bean.IBaseItem;
 public class CommentLongHeader implements IBaseItem {
     private int count;
 
-    public int getCount() {
-        return count;
+    public CommentLongHeader(int count) {
+        this.count = count;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public int getCount() {
+        return count;
     }
 }

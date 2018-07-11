@@ -16,5 +16,7 @@ public class CommentListAdapter extends MultiItemTypeAdapter<IBaseItem> {
     public CommentListAdapter(Context context, List<IBaseItem> datas) {
         super(context, datas);
         addItemViewDelegate(new CommentLongHeaderDelegate());
+        addItemViewDelegate(new CommentItemDelegate());
+        addItemViewDelegate(new CommentShortHeaderDelegate());
     }
 }

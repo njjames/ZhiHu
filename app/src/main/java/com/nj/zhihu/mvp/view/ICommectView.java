@@ -12,5 +12,5 @@ public interface ICommectView extends IBaseView {
 
     void loadLongComments(StoryContentLongComment storyContentLongComment);
 
-    void loadSgortComments(StoryContentShortComment storyContentShortComment);
+    void loadShortComments(StoryContentShortComment storyContentShortComment);
 }

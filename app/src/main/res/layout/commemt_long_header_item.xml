@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/comment_long_title"
@@ -12,4 +13,11 @@
         android:textSize="18sp"
         android:text="0个长评论"
         android:textColor="@color/text_color"/>
+
+    <ImageView
+        android:id="@+id/comment_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/comment_empty"
+        android:visibility="gone"/>
 </LinearLayout>

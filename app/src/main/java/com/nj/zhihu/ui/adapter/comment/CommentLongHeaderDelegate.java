@@ -1,5 +1,8 @@
 package com.nj.zhihu.ui.adapter.comment;
 
+import android.view.View;
+import android.widget.ImageView;
+
 import com.nj.zhihu.R;
 import com.nj.zhihu.bean.IBaseItem;
 import com.zhy.adapter.recyclerview.base.ItemViewDelegate;
@@ -23,6 +26,12 @@ public class CommentLongHeaderDelegate implements ItemViewDelegate<IBaseItem> {
     @Override
     public void convert(ViewHolder holder, IBaseItem iBaseItem, int position) {
         CommentLongHeader commentLongHeader = (CommentLongHeader) iBaseItem;
-        holder.setText(R.id.comment_long_title, commentLongHeader.getCount() + "个评论");
+        holder.setText(R.id.comment_long_title, commentLongHeader.getCount() + "个长评论");
+        ImageView emptyImg = holder.getView(R.id.comment_empty);
+        if (commentLongHeader.getCount() == 0) {
+            emptyImg.setVisibility(View.VISIBLE);
+        }else {
+            emptyImg.setVisibility(View.GONE);
+        }
     }
 }

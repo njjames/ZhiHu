@@ -1,5 +1,6 @@
 package com.nj.zhihu.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.SharedPreferencesCompat;
@@ -173,7 +174,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IStoryCo
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.menu_comment:
-
+                Intent intent = new Intent(BaseActivity.this, CommentActivity.class);
+                intent.putExtra("id", mId);
+                startActivity(intent);
                 break;
             case R.id.menu_like:
                 //这里并没有同步回去，这是在获取到的基础上，点赞=1,去掉点赞就-1
